@@ -5,9 +5,13 @@ from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
 from langchain_core.prompts import ChatPromptTemplate, SystemMessagePromptTemplate, HumanMessagePromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
+f = open(r"C:\Users\hp\Downloads\.rag_key.txt")
+key = f.read()
+
+genai.configure(api_key=key)
 
 # Load the embedding model
-embedding_model = GoogleGenerativeAIEmbeddings(google_api_key="AIzaSyC2Bztff9XtDCDrCJfMJ8py9JaT8VkwSlY", 
+embedding_model = GoogleGenerativeAIEmbeddings(google_api_key=key, 
                                                model="models/embedding-001")
 
 # Setting a Connection with the ChromaDB
