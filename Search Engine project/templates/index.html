@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔍 Search Engine Relevance for Video Subtitles</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff; /* White background */
+            color: #000; /* Black text */
+        }
+        .container {
+            width: 100%;
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #eee; /* Light grey container background */
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        } 
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #555; /* Dark grey heading */
+        }
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            width: 70%;
+            padding: 10px;
+            border: 1px solid #777; /* Dark grey border */
+            border-radius: 5px;
+            font-size: 16px;
+            outline: none;
+            color: #000; /* Black text */
+            background-color: #f5f5f5; /* Light grey input background */
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #333; /* Dark grey button background */
+            color: #fff; /* White button text */
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #555; /* Darkened grey button background */
+        }
+        ul {
+            padding: 0;
+        }
+        .document {
+            background-color: #f5f5f5; /* Light grey document background */
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .document:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .metadata {
+            margin-bottom: 10px;
+        }
+        .excerpt {
+            margin-bottom: 10px;
+        }
+        .full-text {
+            display: none;
+        }
+        .query-text {
+            display: inline-block;
+            max-width: 100%; /* Ensure the text doesn't overflow its container */
+            overflow: hidden; /* Hide any overflow */
+            white-space: nowrap; /* Prevent wrapping */
+            text-overflow: ellipsis; /* Display an ellipsis (...) for truncated text */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍Search Engine Relevance for Video Subtitles</h1>
+        <form method="post">
+            <input type="text" name="query" placeholder="Enter your search query">
+            <button type="submit">Search 🔍</button>
+        </form>
+        
+        {% if query %}
+       <span class="query-text">{{ query }} 😊</span>
+                <ul>
+                    <h2>Top 5 most relevant documents :</h2>
+            {% for item in documents %}
+            <li class="document">
+                <div class="metadata">
+                    <h4>Name: {{ item.metadata.name }} | Number: {{ item.metadata.num }} 📝</h4> 
+                </div>
+                <div class="excerpt">{{ item.document[:100] }}... 📄</div>
+                <div class="full-text">{{ item.document }}</div>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        
+    </div>
+
+    <script>
+        // JavaScript to toggle full text on hover
+        const documents = document.querySelectorAll('.document');
+
+        documents.forEach(document => {
+            const excerpt = document.querySelector('.excerpt');
+            const fullText = document.querySelector('.full-text');
+
+            document.addEventListener('mouseover', () => {
+                excerpt.style.display = 'none';
+                fullText.style.display = 'block';
+            });
+
+            document.addEventListener('mouseout', () => {
+                excerpt.style.display = 'block';
+                fullText.style.display = 'none';
+            });
+        });
+
+        // Additional JavaScript for animating the page
+        const container = document.querySelector('.container');
+
+        // Slide the container up when the page loads
+        window.onload = function() {
+            container.style.transition = 'transform 1s ease-in-out';
+            container.style.transform = 'translateY(-100px)';
+        };
+
+        // Slide the container back down after a delay
+        setTimeout(function() {
+            container.style.transition = 'transform 1s ease-in-out';
+            container.style.transform = 'translateY(0)';
+        }, 2000);
+    </script>
+</body>
+</html>
